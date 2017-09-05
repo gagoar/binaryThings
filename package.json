@@ -1,0 +1,12 @@
+{
+  "name": "binaryThings",
+  "version": "1.0.0",
+  "description": "some algorithmic implementations of common questions about binary search, balanced trees and such.",
+  "main": "index.js",
+  "repository": "git@github.com:gagoar/binaryThings.git",
+  "author": "gagoar <xeroice@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "ava": "^0.22.0"
+  }
+}
