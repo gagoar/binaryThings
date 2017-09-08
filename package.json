@@ -6,7 +6,26 @@
   "repository": "git@github.com:gagoar/binaryThings.git",
   "author": "gagoar <xeroice@gmail.com>",
   "license": "MIT",
+  "eslintConfig": {
+    "extends": "eventbrite",
+    "rules": {
+      "indent": ["error", 2],
+      "no-unused-expressions":  [2, {"allowTernary": true}],
+      "import/unambiguous": "off"
+    }
+  },
   "dependencies": {
-    "ava": "^0.22.0"
+    "ava": "^0.22.0",
+    "babel-eslint": "^7.2.3"
+  },
+  "devDependencies": {
+    "eslint": "^3.0.0",
+    "eslint-config-eventbrite": "^4.1.0",
+    "eslint-plugin-import": "^2.7.0"
+  },
+  "scripts": {
+    "ava:debug": "inspect node_modules/ava/profile.js",
+    "test": "ava --verbose",
+    "test:watch": "yarn test -- --watch"
   }
 }
