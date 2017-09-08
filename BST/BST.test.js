@@ -6,7 +6,7 @@ import BinarySearchTree from './BST';
 test('BST instance is a class of BinarySearchTree ', (t) => {
   let node = new BinarySearchTree(1);
 
-  t.is(node instanceof BinarySearchTree, true);
+  t.true(node instanceof BinarySearchTree);
 });
 
 test('BST instance has insert, contains', (t) => {
@@ -61,9 +61,9 @@ test('BST:contains: values should be found in the tree', (t) => {
   node.insert(3);
   node.insert(0);
 
-  t.is(node.contains(2), true);
-  t.is(node.contains(1), true);
-  t.is(node.contains(3), true);
+  t.true(node.contains(2));
+  t.true(node.contains(1));
+  t.true(node.contains(3));
 });
 
 test('BST:contains: value should not be found in the tree', (t) => {
@@ -73,5 +73,7 @@ test('BST:contains: value should not be found in the tree', (t) => {
   node.insert(3);
   node.insert(0);
 
-  t.is(node.contains(5), false);
+  t.false(node.contains(5));
 });
+
+test.todo('depthFirstLog');

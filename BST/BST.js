@@ -14,12 +14,12 @@ class BinarySearchTree {
     if(this.value > value) {
       this.left
         ? this.left.insert(value)
-        : (this.setLeft(value));
+        : (this.left = value);
 
     } else if (this.value < value) {
       this.right
         ? this.right.insert(value)
-        : (this.setRight(value));
+        : (this.right = value);
     }
   }
 
@@ -52,7 +52,7 @@ class BinarySearchTree {
     return this.state.value;
   }
 
-  setRight(value) {
+  set right(value) {
     this.state.right = new BinarySearchTree(value);
   }
 
@@ -60,7 +60,7 @@ class BinarySearchTree {
     return this.state.right;
   }
 
-  setLeft(value) {
+  set left(value) {
     this.state.left = new BinarySearchTree(value);
   }
 
