@@ -19,21 +19,20 @@ test('BST instance has insert, contains', (t) => {
 test('BST first node set value correctly when created', (t) => {
   let node = new BinarySearchTree(1);
 
-  t.is(node.value, 1);
+  t.is(node.getValue(), 1);
 });
 
 test('BST first node set value correctly when created', (t) => {
   let node = new BinarySearchTree(1);
 
-  t.is(node.value, 1);
+  t.is(node.getValue(), 1);
 });
 
 test('BST:insert:  first node, inserts right node correctly', (t) => {
   let node = new BinarySearchTree(2);
 
   node.insert(3);
-
-  t.is(node.right.value, 3);
+  t.is(node.getRight().getValue(), 3);
 });
 
 test('BST:insert first node, inserts left node correctly', (t) => {
@@ -41,7 +40,7 @@ test('BST:insert first node, inserts left node correctly', (t) => {
 
   node.insert(1);
 
-  t.is(node.left.value, 1);
+  t.is(node.getLeft().getValue(), 1);
 });
 
 test('BST:insert a third value should we added to the left node', (t) => {
@@ -51,7 +50,7 @@ test('BST:insert a third value should we added to the left node', (t) => {
   node.insert(3);
   node.insert(0);
 
-  t.is(node.left.left.value, 0);
+  t.is(node.getLeft().getLeft().getValue(), 0);
 });
 
 test('BST:contains: values should be found in the tree', (t) => {

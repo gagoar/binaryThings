@@ -11,60 +11,60 @@ class BinarySearchTree {
   }
 
   insert(value) {
-    if(this.value > value) {
-      this.left
-        ? this.left.insert(value)
-        : (this.left = value);
+    if (this.getValue() > value) {
+      this.getLeft()
+        ? this.getLeft().insert(value)
+        : this.setLeft(value);
 
-    } else if (this.value < value) {
-      this.right
-        ? this.right.insert(value)
-        : (this.right = value);
+    } else if (this.getValue() < value) {
+      this.getRight()
+        ? this.getRight().insert(value)
+        : this.setRight(value);
     }
   }
 
   contains(value) {
     let found = false;
 
-    if(this.value > value) {
-      found = this.left
-        ? this.left.contains(value)
+    if (this.getValue() > value) {
+      found = this.getLeft()
+        ? this.getLeft().contains(value)
         : false;
 
-    } else if (this.value < value) {
-      found = this.right
-        ? this.right.contains(value)
+    } else if (this.getValue() < value) {
+      found = this.getRight()
+        ? this.getRight().contains(value)
         : false;
     }
 
-    if (this.value === value) {
+    if (this.getValue() === value) {
       found = true;
     }
 
     return found;
   }
 
-  set value(value) {
+  setValue(value) {
     this.state.value = value;
   }
 
-  get value() {
+  getValue() {
     return this.state.value;
   }
 
-  set right(value) {
+  setRight(value) {
     this.state.right = new BinarySearchTree(value);
   }
 
-  get right() {
+  getRight() {
     return this.state.right;
   }
 
-  set left(value) {
+  setLeft(value) {
     this.state.left = new BinarySearchTree(value);
   }
 
-  get left() {
+  getLeft() {
     return this.state.left;
   }
 }
