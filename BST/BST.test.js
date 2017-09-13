@@ -53,12 +53,15 @@ test('BST:insert a third value should we added to the left node', (t) => {
   t.is(node.getLeft().getLeft().getValue(), 0);
 });
 
-test('BST:contains: values should be found in the tree', (t) => {
-  let node = new BinarySearchTree(2);
 
-  node.insert(1);
-  node.insert(3);
-  node.insert(0);
+test('BST:constructor creates tree when array provided', (t) => {
+  let node = new BinarySearchTree([2, 1, 3, 0]);
+
+  t.is(node.getLeft().getLeft().getValue(), 0);
+});
+
+test('BST:contains: values should be found in the tree', (t) => {
+  let node = new BinarySearchTree([2, 1, 3, 0]);
 
   t.true(node.contains(2));
   t.true(node.contains(1));
@@ -66,13 +69,80 @@ test('BST:contains: values should be found in the tree', (t) => {
 });
 
 test('BST:contains: value should not be found in the tree', (t) => {
-  let node = new BinarySearchTree(2);
-
-  node.insert(1);
-  node.insert(3);
-  node.insert(0);
+  let node = new BinarySearchTree([2, 1, 3, 0]);
 
   t.false(node.contains(5));
 });
 
-test.todo('depthFirstLog');
+test('BST:minDepth: should be 1 when we have only the root node', (t) => {
+  let node = new BinarySearchTree(2);
+
+  t.is(node.minDepth(), 1);
+});
+
+test.skip('BST:minDepth: should be 2 when we have 3 levels and 2', (t) => {
+  let node = new BinarySearchTree([2, 1, 3, 0]);
+
+  t.is(node.minDepth(), 2);
+});
+
+test('BST:minDepth: should be 3 when we have 3 levels in every branch', (t) => {
+  let node = new BinarySearchTree([2, 1, 3, 0, 4, -2, 5, -1]);
+
+  t.is(node.minDepth(), 3);
+});
+
+test('BST:getChildrenArray: should be the correct schema', (t) => {
+  let node = new BinarySearchTree([2, 1, 3, 0]);
+  let content = [
+    '2',
+    '2.1',
+    '2.1.0',
+    '2.3',
+  ];
+
+  t.truthy(node.getChildrenArray(), content);
+});
+
+
+test('BST:getChildrenArray: should match a bigger schema', (t) => {
+  let node = new BinarySearchTree([2, 1, 3, 0, 4, -2, 5, -1]);
+
+  let content = [
+    '2',
+    '2.1',
+    '2.1.0',
+    '2.1.0.-2',
+    '2.1.0.-2.-1',
+    '2.3',
+    '2.3.4',
+    '2.3.4.5',
+  ];
+
+  t.truthy(node.getChildrenArray(), content);
+});
+
+test('BST:toCSV: should match a bigger schema', (t) => {
+  let node = new BinarySearchTree([2, 1, 3, 0]);
+  let content = 'id,value\n2.1,1\n2.1.0,1\n2.3,1';
+
+  t.truthy(node.getCSV(), content);
+});
+
+test('BST:toJSON: should match a bigger schema', (t) => {
+  let node = new BinarySearchTree([2, 1, 3, 0]);
+  let content = {
+    name: 2,
+    children: [{
+      name: 1,
+      children: [{name: 0}],
+    },
+    {name: 3}],
+  };
+
+  t.truthy(node.getJSON(), content);
+});
+test.skip('BST:depthFirstLog should visit every node created in the tree', (t) => {
+
+
+});
