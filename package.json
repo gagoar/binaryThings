@@ -9,30 +9,17 @@
   "eslintConfig": {
     "extends": "eventbrite",
     "rules": {
-      "indent": [
-        "error",
-        2
-      ],
-      "no-unused-expressions": [
-        2,
-        {
-          "allowTernary": true
-        }
-      ],
+      "indent": ["error", 2],
+      "no-unused-expressions":  [2, {"allowTernary": true}],
       "import/unambiguous": "off"
     }
   },
   "babel": {
-    "presets": [
-      "flow"
-    ]
+    "presets": ["flow"]
   },
   "dependencies": {
     "ava": "^0.22.0",
-    "babel-eslint": "^7.2.3",
-    "d3": "^4.10.2",
-    "webpack": "^3.5.6",
-    "webpack-dev-server": "^2.7.1"
+    "babel-eslint": "^7.2.3"
   },
   "devDependencies": {
     "eslint": "^3.0.0",
@@ -40,7 +27,8 @@
     "eslint-plugin-import": "^2.7.0"
   },
   "scripts": {
-    "ava:debug": "inspect node_modules/ava/profile.js",
+    "start": "webpack-dev-server --progress",
+    "test:debug": "inspect node_modules/ava/profile.js",
     "test": "ava --verbose",
     "test:watch": "yarn test -- --watch"
   }

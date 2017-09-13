@@ -1,15 +1,14 @@
-import * as d3 from 'd3';
+import {hierarchy, select, tree} from 'd3';
 // set the dimensions and margins of the diagram
 const margin = {top: 20, right: 90, bottom: 30, left: 90};
 const width = 660 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
 
 // declares a tree layout and assigns the size
-const treemap = d3.tree().size([height, width]);
+const treemap = tree().size([height, width]);
 
 const draw = (data) => {
-
-  let nodes = d3.hierarchy(data, (d) => d.children);
+  let nodes = hierarchy(data, ({children}) => children);
 
   // maps the node data to the tree layout
   nodes = treemap(nodes);
@@ -17,7 +16,7 @@ const draw = (data) => {
   // append the svg object to the body of the page
   // appends a 'group' element to 'svg'
   // moves the 'group' element to the top left margin
-  const svg = d3.select('body').append('svg')
+  const svg = select('body').append('svg')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom);
 
@@ -40,8 +39,8 @@ const draw = (data) => {
   const node = g.selectAll('.node')
     .data(nodes.descendants())
     .enter().append('g')
-    .attr('class', (d) => `node ${(d.children ? ' node--internal' : ' node--leaf')}`)
-    .attr('transform', (d) => `translate(${d.y},${d.x})`);
+    .attr('class', ({children}) => `node ${(children ? ' node--internal' : ' node--leaf')}`)
+    .attr('transform', ({y, x}) => `translate(${y},${x})`);
 
     // adds the circle to the no
     // adds the circle to the node
@@ -50,10 +49,10 @@ const draw = (data) => {
   // adds the text to the node
   node.append('text')
     .attr('dy', '.35em')
-    .attr('x', (d) => d.children ? -13 : 13 )
-    .style('text-anchor', (d) => (
-      d.children ? 'end' : 'start' ))
-    .text((d) => d.data.name);
+    .attr('x', ({children}) => children ? -13 : 13 )
+    .style('text-anchor', ({children}) => (
+      children ? 'end' : 'start' ))
+    .text(({data: {name}}) => name);
 };
 
 export default draw;
