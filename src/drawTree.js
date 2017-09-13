@@ -4,11 +4,35 @@ const margin = {top: 20, right: 90, bottom: 30, left: 90};
 const width = 660 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
 
+const getOrientation = (position = 'vertical') => ({
+  horizontal: {
+    d: (d) => (
+      `M ${d.x},${d.y}
+      C ${d.x},${(d.y + d.parent.y) / 2}
+      ${d.parent.x},${(d.y + d.parent.y) / 2}
+      ${d.parent.x},${d.parent.y}`
+    ),
+    transform: ({y, x}) => `translate(${x},${y})`,
+  },
+  vertical: {
+    d: (d) => (
+      `M ${d.y},${d.x}
+      C ${(d.y + d.parent.y) / 2},${d.x}
+      ${(d.y + d.parent.y) / 2},${d.parent.x}
+      ${d.parent.y},${d.parent.x}`
+    ),
+
+    transform: ({y, x}) => `translate(${y},${x})`,
+  },
+}[position]);
 // declares a tree layout and assigns the size
 const treemap = tree().size([height, width]);
 
-const draw = (data) => {
+const draw = (data, vertical = false) => {
   let nodes = hierarchy(data, ({children}) => children);
+
+  const position = vertical ? 'horizontal' : 'vertical';
+  const useOrientation = getOrientation(position);
 
   // maps the node data to the tree layout
   nodes = treemap(nodes);
@@ -28,19 +52,14 @@ const draw = (data) => {
     .data(nodes.descendants().slice(1))
     .enter().append('path')
     .attr('class', 'link')
-    .attr('d', (d) => (
-      `M ${d.y},${d.x}
-      C ${(d.y + d.parent.y) / 2},${d.x}
-       ${(d.y + d.parent.y) / 2},${d.parent.x}
-        ${d.parent.y},${d.parent.x}`
-    ));
+    .attr('d', useOrientation.d);
 
   // adds each node as a group
   const node = g.selectAll('.node')
     .data(nodes.descendants())
     .enter().append('g')
     .attr('class', ({children}) => `node ${(children ? ' node--internal' : ' node--leaf')}`)
-    .attr('transform', ({y, x}) => `translate(${y},${x})`);
+    .attr('transform', useOrientation.transform);
 
     // adds the circle to the no
     // adds the circle to the node
