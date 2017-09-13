@@ -142,6 +142,22 @@ test('BST:toJSON: should match a bigger schema', (t) => {
 
   t.truthy(node.getJSON(), content);
 });
+
+test('BST:getJSONWithParent: should match a bigger schema', (t) => {
+  let node = new BinarySearchTree([2, 1, 3, 0]);
+  let content = {
+    name: 2,
+    parent: null,
+    children: [{
+      name: 1,
+      parent: 2,
+      children: [{name: 0, parent: 1}],
+    },
+    {name: 3, parent: 2}],
+  };
+
+  t.truthy(node.getJSONWithParent(), content);
+});
 test.skip('BST:depthFirstLog should visit every node created in the tree', (t) => {
 
 

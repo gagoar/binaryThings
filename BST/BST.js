@@ -156,6 +156,23 @@ class BinarySearchTree {
     this.state.value = value;
   }
 
+  getJSONWithParent(parent = 'null') {
+    let children = [];
+
+    if (this.getLeft()) {
+      children.push(this.getLeft().getJSONWithParent(this.getValue()));
+    }
+
+    if (this.getRight()) {
+      children.push(this.getRight().getJSONWithParent(this.getValue()));
+    }
+
+    return {name: this.getValue(), parent, children};
+  }
+  setValue(value) {
+    this.state.value = value;
+  }
+
   getValue() {
     return this.state.value;
   }
