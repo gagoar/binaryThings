@@ -74,24 +74,6 @@ test('BST:contains: value should not be found in the tree', (t) => {
   t.false(node.contains(5));
 });
 
-test('BST:minDepth: should be 1 when we have only the root node', (t) => {
-  let node = new BinarySearchTree(2);
-
-  t.is(node.minDepth(), 1);
-});
-
-test.skip('BST:minDepth: should be 2 when we have 3 levels and 2', (t) => {
-  let node = new BinarySearchTree([2, 1, 3, 0]);
-
-  t.is(node.minDepth(), 2);
-});
-
-test('BST:minDepth: should be 3 when we have 3 levels in every branch', (t) => {
-  let node = new BinarySearchTree([2, 1, 3, 0, 4, -2, 5, -1]);
-
-  t.is(node.minDepth(), 3);
-});
-
 test('BST:getChildrenArray: should be the correct schema', (t) => {
   let node = new BinarySearchTree([2, 1, 3, 0]);
   let content = [
@@ -157,6 +139,72 @@ test('BST:getJSONWithParent: should match a bigger schema', (t) => {
   };
 
   t.truthy(node.getJSONWithParent(), content);
+});
+test('BST:getDepth should informe correctly the node\'s depth ', (t) => {
+  let node = new BinarySearchTree();
+
+  node.insert(3);
+  node.insert(1);
+  node.insert(0);
+
+  t.is(node.getDepth(), 2);
+  t.is(node.getLeft().getDepth(), 1);
+  t.is(node.getRight().getDepth(), 1);
+});
+
+test('BST:AVL to balanced itself after inserts (left, left)', (t) => {
+  let node = new BinarySearchTree();
+
+  node.insert(3);
+  node.insert(1);
+  node.insert(0);
+
+  t.is(node.getValue(), 1);
+  t.is(node.getLeft().getValue(), 0);
+  t.is(node.getRight().getValue(), 3);
+});
+
+test('BST:AVL to balanced itself after inserts (right, right)', (t) => {
+  let node = new BinarySearchTree();
+
+  node.insert(0);
+  node.insert(1);
+  node.insert(3);
+
+  t.is(node.getValue(), 1);
+  t.is(node.getLeft().getValue(), 0);
+  t.is(node.getRight().getValue(), 3);
+});
+
+
+test('BST:AVL to balanced itself after inserts (right, left)', (t) => {
+  let node = new BinarySearchTree();
+
+  node.insert(0);
+  node.insert(3);
+  node.insert(1);
+
+  t.is(node.getValue(), 1);
+  t.is(node.getLeft().getValue(), 0);
+  t.is(node.getRight().getValue(), 3);
+});
+
+test('BST:AVL to balanced itself after inserts (right, left)', (t) => {
+  let node = new BinarySearchTree();
+
+  node.insert(10);
+  node.insert(5);
+  node.insert(15);
+  node.insert(0);
+  node.insert(7);
+  node.insert(6);
+
+  t.is(node.getValue(), 7);
+  t.is(node.getLeft().getValue(), 5);
+  t.is(node.getRight().getValue(), 10);
+  t.is(node.getLeft().getLeft().getValue(), 0);
+  t.is(node.getLeft().getRight().getValue(), 6);
+  t.is(node.getRight().getRight().getValue(), 15);
 });
 test.skip('BST:depthFirstLog should visit every node created in the tree', (t) => {
 

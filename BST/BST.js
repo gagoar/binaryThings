@@ -34,6 +34,7 @@ class BinarySearchTree {
       right: null,
       // another BST where all the values are higher than the current value.
       left: null,
+      depth: 1,
     };
 
     if (nodes.length) {
@@ -41,34 +42,110 @@ class BinarySearchTree {
     }
   }
 
-  /*
-  if ($new->getKey() <= $root->getKey()) {
-			if ($root->getLeft() == null) {
-				$root->setLeft($new);
-				$new->setParent($root);
-			} else {
-				$this->_insert($new, $root->getLeft());
-			}
-		} else {
-			if ($root->getRight() == null) {
-				$root->setRight($new);
-				$new->setParent($root);
-			} else {
-				$this->_insert($new, $root->getRight());
-			}
-		}
-  */
   insert(value) {
+    if (this.getValue() === null) {
+      this.setValue(value);
+      return;
+    }
+
     if (this.getValue() > value) {
       this.getLeft()
         ? this.getLeft().insert(value)
-        : this.setLeft(value);
+        : this.setLeft(new BinarySearchTree(value));
 
     } else if (this.getValue() < value) {
       this.getRight()
         ? this.getRight().insert(value)
-        : this.setRight(value);
+        : this.setRight(new BinarySearchTree(value));
     }
+
+    let rightDepth = this.getRight() ? this.getRight().getDepth() : 0;
+    let leftDepth = this.getLeft() ? this.getLeft().getDepth() : 0;
+
+    if (Math.abs(rightDepth - leftDepth) > 1) {
+      this.balance();
+    }
+    
+    this.calcDepth();
+  }
+
+  balance() {
+    let rightDepth = this.getRight() ? this.getRight().getDepth() : 0;
+    let leftDepth = this.getLeft() ? this.getLeft().getDepth() : 0;
+    let rightChildDepth;
+    let leftChildDepth;
+
+    if (rightDepth > leftDepth) {
+      // right
+      let rightNode = this.getRight();
+
+      rightChildDepth = rightNode.getRight() ? rightNode.getRight().getDepth() : 0;
+      leftChildDepth = rightNode.getLeft() ? rightNode.getLeft().getDepth() : 0;
+
+      if (leftChildDepth > rightChildDepth) {
+        this.getRight().balanceRight();
+        this.balanceLeft();
+      } else {
+        this.balanceLeft();
+      }
+
+
+    } else {
+      //left
+      let leftNode = this.getLeft();
+
+      rightChildDepth = leftNode.getRight() ? leftNode.getRight().getDepth() : 0;
+      leftChildDepth = leftNode.getLeft() ? leftNode.getLeft().getDepth() : 0;
+
+      if (leftChildDepth > rightChildDepth) {
+        this.balanceRight();
+      } else {
+        this.getLeft().balanceLeft();
+        this.balanceRight();
+      }
+    }
+
+  }
+  balanceRight() {
+    let leftChild = this.getLeft();
+    let newNode = new BinarySearchTree(this.getValue());
+
+    newNode.setLeft(leftChild.getRight());
+    newNode.setRight(this.getRight());
+
+    this.setValue(leftChild.getValue());
+    this.setRight(newNode);
+    this.setLeft(leftChild.getLeft());
+  }
+  balanceLeft() {
+    let rightChild = this.getRight();
+    let newNode = new BinarySearchTree(this.getValue());
+
+    newNode.setRight(rightChild.getLeft());
+    newNode.setLeft(this.getLeft());
+
+    this.setValue(rightChild.getValue());
+    this.setLeft(newNode);
+    this.setRight(rightChild.getRight());
+  }
+
+  getDepth() {
+    return this.state.depth;
+  }
+  setDepth(value = 1) {
+    this.state.depth = value;
+  }
+
+  calcDepth() {
+    let rightDepth = this.getRight() ? this.getRight().getDepth() : 0;
+    let leftDepth = this.getLeft() ? this.getLeft().getDepth() : 0;
+
+    this.setDepth(
+      1 + Math.max(
+        rightDepth,
+        leftDepth,
+      )
+    );
   }
 
   contains(value) {
@@ -91,26 +168,6 @@ class BinarySearchTree {
 
     return found;
   }
-  minDepth() {
-    // in any case, if we have at least the first node, we have depth = 1,
-    // in order to do this without stricklty checking that nothing is 0 (because it would give depth as 0 always),
-    // we set both to right/left 1, and Math.min does the rest. :)
-
-    if (!this.getLeft() && !this.getRight()) {
-      return 1;
-    }
-
-    if (!this.getLeft()) {
-      return this.getRight().minDepth() + 1;
-    }
-
-    if (!this.getRight()) {
-      return this.getLeft().minDepth() + 1;
-    }
-
-    return Math.min(this.getRight().minDepth(), this.getLeft().minDepth());
-  }
-
   getChildrenArray(root = `${this.getValue()}`) {
 
     let content = [root];
@@ -152,9 +209,6 @@ class BinarySearchTree {
 
     return {name: this.getValue(), children};
   }
-  setValue(value) {
-    this.state.value = value;
-  }
 
   getJSONWithParent(parent = 'null') {
     let children = [];
@@ -177,16 +231,18 @@ class BinarySearchTree {
     return this.state.value;
   }
 
-  setRight(value) {
-    this.state.right = new BinarySearchTree(value);
+  setRight(node) {
+    this.state.right = node;
+    this.calcDepth();
   }
 
   getRight() {
     return this.state.right;
   }
 
-  setLeft(value) {
-    this.state.left = new BinarySearchTree(value);
+  setLeft(node) {
+    this.state.left = node;
+    this.calcDepth();
   }
 
   getLeft() {
