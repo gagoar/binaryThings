@@ -9,13 +9,23 @@
   "eslintConfig": {
     "extends": "eventbrite",
     "rules": {
-      "indent": ["error", 2],
-      "no-unused-expressions":  [2, {"allowTernary": true}],
+      "indent": [
+        "error",
+        2
+      ],
+      "no-unused-expressions": [
+        2,
+        {
+          "allowTernary": true
+        }
+      ],
       "import/unambiguous": "off"
     }
   },
   "babel": {
-    "presets": ["flow"]
+    "presets": [
+      "flow"
+    ]
   },
   "dependencies": {
     "ava": "^0.22.0",
@@ -24,7 +34,9 @@
   "devDependencies": {
     "eslint": "^3.0.0",
     "eslint-config-eventbrite": "^4.1.0",
-    "eslint-plugin-import": "^2.7.0"
+    "eslint-plugin-import": "^2.7.0",
+    "webpack": "^3.5.6",
+    "webpack-dev-server": "^2.8.1"
   },
   "scripts": {
     "start": "webpack-dev-server --progress",
