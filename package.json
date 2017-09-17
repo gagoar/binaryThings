@@ -24,17 +24,32 @@
   },
   "babel": {
     "presets": [
-      "flow"
+      "env",
+      "react",
+      "stage-0"
+    ],
+    "plugins": [
+      "transform-class-properties",
+      "transform-decorators"
     ]
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
   },
   "dependencies": {
     "ava": "^0.22.0",
     "babel-eslint": "^7.2.3"
   },
   "devDependencies": {
+    "babel-env": "^2.4.1",
+    "babel-register": "^6.26.0",
     "eslint": "^3.0.0",
     "eslint-config-eventbrite": "^4.1.0",
     "eslint-plugin-import": "^2.7.0",
+    "jsdom": "^11.2.0",
     "nyc": "^11.2.1",
     "webpack": "^3.5.6",
     "webpack-dev-server": "^2.8.1"
@@ -42,7 +57,7 @@
   "scripts": {
     "start": "webpack-dev-server --progress",
     "test:debug": "inspect node_modules/ava/profile.js",
-    "test": "nyc ava --verbose",
+    "test": "nyc   ava --verbose",
     "test:watch": "yarn test -- --watch"
   }
 }
