@@ -1,18 +1,3 @@
-// const _optimizeInput = (nodes) => {
-//   let values = nodes.slice();
-//   let median;
-//
-//   values.sort((a, b) => a - b);
-//   let half = Math.floor(values.length / 2);
-//
-//   if(values.length % 2) {
-//     median = values[half];
-//   } else {
-//     median = (values[half - 1] + values[half]) / 2.0;
-//   }
-//
-// }
-
 const CSV_HEADER = 'name,parent';
 
 const _flatten = (list) => list.reduce(
@@ -65,7 +50,7 @@ class BinarySearchTree {
     if (Math.abs(rightDepth - leftDepth) > 1) {
       this.balance();
     }
-    
+
     this.calcDepth();
   }
 
