@@ -1,4 +1,4 @@
-// Implement// *global window :true*/
+// *global window :true*/
 import test from 'ava';
 
 import hasDuplicatedCharacters from './UniqCharacters.page172';
