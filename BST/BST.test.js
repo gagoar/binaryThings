@@ -207,6 +207,5 @@ test('BST:AVL to balanced itself after inserts (right, left)', (t) => {
   t.is(node.getRight().getRight().getValue(), 15);
 });
 test.skip('BST:depthFirstLog should visit every node created in the tree', (t) => {
-
-
+  t.pass();
 });
