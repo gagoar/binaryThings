@@ -44,10 +44,7 @@ class BinarySearchTree {
         : this.setRight(new BinarySearchTree(value));
     }
 
-    let rightDepth = this.getRight() ? this.getRight().getDepth() : 0;
-    let leftDepth = this.getLeft() ? this.getLeft().getDepth() : 0;
-
-    if (Math.abs(rightDepth - leftDepth) > 1) {
+    if (Math.abs(this.getRightDepth() - this.getLeftDepth()) > 1) {
       this.balance();
     }
 
@@ -55,39 +52,25 @@ class BinarySearchTree {
   }
 
   balance() {
-    let rightDepth = this.getRight() ? this.getRight().getDepth() : 0;
-    let leftDepth = this.getLeft() ? this.getLeft().getDepth() : 0;
-    let rightChildDepth;
-    let leftChildDepth;
-
-    if (rightDepth > leftDepth) {
+    if (this.getRightDepth() > this.getLeftDepth()) {
       // right
       let rightNode = this.getRight();
 
-      rightChildDepth = rightNode.getRight() ? rightNode.getRight().getDepth() : 0;
-      leftChildDepth = rightNode.getLeft() ? rightNode.getLeft().getDepth() : 0;
-
-      if (leftChildDepth > rightChildDepth) {
+      if (rightNode.getLeftDepth() > rightNode.getRightDepth()) {
         this.getRight().balanceRight();
-        this.balanceLeft();
-      } else {
-        this.balanceLeft();
       }
 
+      this.balanceLeft();
 
     } else {
       //left
       let leftNode = this.getLeft();
 
-      rightChildDepth = leftNode.getRight() ? leftNode.getRight().getDepth() : 0;
-      leftChildDepth = leftNode.getLeft() ? leftNode.getLeft().getDepth() : 0;
-
-      if (leftChildDepth > rightChildDepth) {
-        this.balanceRight();
-      } else {
+      if (leftNode.getLeftDepth() < leftNode.getRightDepth()) {
         this.getLeft().balanceLeft();
-        this.balanceRight();
       }
+
+      this.balanceRight();
     }
 
   }
@@ -121,14 +104,17 @@ class BinarySearchTree {
     this.state.depth = value;
   }
 
+  getRightDepth() {
+    return this.getRight() ? this.getRight().getDepth() : 0;
+  }
+  getLeftDepth() {
+    return this.getLeft() ? this.getLeft().getDepth() : 0;
+  }
   calcDepth() {
-    let rightDepth = this.getRight() ? this.getRight().getDepth() : 0;
-    let leftDepth = this.getLeft() ? this.getLeft().getDepth() : 0;
-
     this.setDepth(
       1 + Math.max(
-        rightDepth,
-        leftDepth,
+        this.getRightDepth(),
+        this.getLeftDepth(),
       )
     );
   }
