@@ -41,7 +41,8 @@
   },
   "dependencies": {
     "ava": "^0.22.0",
-    "babel-eslint": "^7.2.3"
+    "babel-eslint": "^7.2.3",
+    "d3": "^4.10.2"
   },
   "devDependencies": {
     "babel-env": "^2.4.1",

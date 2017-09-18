@@ -61,11 +61,26 @@ test('BST:constructor creates tree when array provided', (t) => {
 });
 
 test('BST:contains: values should be found in the tree', (t) => {
-  let node = new BinarySearchTree([2, 1, 3, 0]);
+  let node = new BinarySearchTree();
+
+  node.insert(10);
+  node.insert(5);
+  node.insert(15);
+  node.insert(0);
+  node.insert(7);
+  node.insert(6);
+
+  t.true(node.contains(15));
+});
+
+test('BST:contains: values should be found in the tree', (t) => {
+  let node = new BinarySearchTree([2, 1, 3, 0, 4, -1]);
 
   t.true(node.contains(2));
   t.true(node.contains(1));
   t.true(node.contains(3));
+  t.true(node.contains(4));
+  t.true(node.contains(-1));
 });
 
 test('BST:contains: value should not be found in the tree', (t) => {
@@ -140,6 +155,15 @@ test('BST:getJSONWithParent: should match a bigger schema', (t) => {
 
   t.truthy(node.getJSONWithParent(), content);
 });
+
+test('BST:setDepth get\'s assigned when called', (t) => {
+  let node = new BinarySearchTree(1);
+
+  node.setDepth();
+
+  t.is(node.getDepth(), 1);
+});
+
 test('BST:getDepth should informe correctly the node\'s depth ', (t) => {
   let node = new BinarySearchTree();
 
@@ -205,7 +229,4 @@ test('BST:AVL to balanced itself after inserts (right, left)', (t) => {
   t.is(node.getLeft().getLeft().getValue(), 0);
   t.is(node.getLeft().getRight().getValue(), 6);
   t.is(node.getRight().getRight().getValue(), 15);
-});
-test.skip('BST:depthFirstLog should visit every node created in the tree', (t) => {
-  t.pass();
 });
