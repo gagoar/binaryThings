@@ -7,16 +7,29 @@ const _isString = (content) => typeof content === 'string';
 const _isValidInput = (...values) => {
   let isValid = false;
 
-  const areStrings = values.every(_isString);
-
-  if (areStrings) {
+  if (values.every(_isString)) {
     const valuesWithoutSpaces = values.map((value) => value.replace(SPACE_PATTERN, ''));
 
+    // after stripping down spaces, we check if we still have valid strings.
     isValid = valuesWithoutSpaces.every((value) => value.length);
   }
 
   return isValid;
 };
+// in this case normalize means, that we would count the letters in every word, so we can compare them letter on.
+
+const _normalize = (word) => (
+  word.reduce((memo, char) => {
+    let additive = 1;
+
+    if (char in memo) {
+      additive += memo[char];
+    }
+
+    // we normalize every string to an object counting every letter used.
+    return {...memo, [char]: additive};
+  }, {})
+);
 
 const isaPermutation = (original = '', permutation = '') => {
 // we are gonna define, for the sake of the excercise that an empty string is not a permutation of itself :P
@@ -24,8 +37,10 @@ const isaPermutation = (original = '', permutation = '') => {
   if (!_isValidInput(original, permutation)) {
     throw new Error('invalid input, please try to provide 2 valid strings');
   }
-  // the same string is not a permutation of itself.
-  // but both need to be the same length.
+
+  // Quick exist cases.
+  // different length.
+  // same string
   if (original === permutation || original.length !== permutation.length ) {
     return false;
   }
@@ -35,19 +50,13 @@ const isaPermutation = (original = '', permutation = '') => {
   ));
 
   const [originalToObj, permutationtoObj] = values.reduce((valuesToHashes, value) => {
-    const hash = value.reduce((memo, char) => {
-      let additive = 1;
+    const hash = _normalize(value);
 
-      if (char in memo) {
-        additive += memo[char];
-      }
-
-      return {...memo, [char]: additive};
-    }, {});
-
+    // we return both words as normalized objects
     return [...valuesToHashes, hash];
-  }, {});
+  }, []);
 
+  // we compare both objects. for an exact match.
   return Object.keys(originalToObj).every((key) => originalToObj[key] === permutationtoObj[key]);
 };
 
