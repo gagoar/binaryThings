@@ -38,7 +38,7 @@ const isaPermutation = (original = '', permutation = '') => {
     throw new Error('invalid input, please try to provide 2 valid strings');
   }
 
-  // Quick exist cases.
+  // Quick exit cases.
   // different length.
   // same string
   if (original === permutation || original.length !== permutation.length ) {
@@ -49,15 +49,10 @@ const isaPermutation = (original = '', permutation = '') => {
     value.replace(SPACE_PATTERN, '').split('')
   ));
 
-  const [originalToObj, permutationtoObj] = values.reduce((valuesToHashes, value) => {
-    const hash = _normalize(value);
-
-    // we return both words as normalized objects
-    return [...valuesToHashes, hash];
-  }, []);
+  const [normalizedOriginal, normalizedPermutation] = values.map(_normalize);
 
   // we compare both objects. for an exact match.
-  return Object.keys(originalToObj).every((key) => originalToObj[key] === permutationtoObj[key]);
+  return Object.keys(normalizedOriginal).every((key) => normalizedOriginal[key] === normalizedPermutation[key]);
 };
 
 export default isaPermutation;
