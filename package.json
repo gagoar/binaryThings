@@ -29,9 +29,9 @@
       "stage-0"
     ],
     "plugins": [
-      "transform-class-properties",
-      "transform-runtime",
       "transform-regenerator",
+      "transform-runtime",
+      "transform-class-properties",
       "transform-decorators"
     ]
   },
@@ -39,7 +39,19 @@
     "require": [
       "babel-register"
     ],
-    "babel": "inherit"
+    "babel": {
+      "presets": [
+        "env",
+        "react",
+        "stage-0"
+      ],
+      "plugins": [
+        "transform-regenerator",
+        "transform-runtime",
+        "transform-class-properties",
+        "transform-decorators"
+      ]
+    }
   },
   "dependencies": {
     "ava": "^0.22.0",
@@ -47,6 +59,7 @@
     "d3": "^4.10.2"
   },
   "devDependencies": {
+    "ajv": "^5.2.2",
     "babel-env": "^2.4.1",
     "babel-plugin-transform-regenerator": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
