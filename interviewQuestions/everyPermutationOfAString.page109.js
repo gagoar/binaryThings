@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign*/
+
 const _factorialOf = (number) => {
   if (!number) {
     return 1;
