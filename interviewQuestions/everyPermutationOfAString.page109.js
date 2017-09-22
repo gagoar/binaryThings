@@ -10,10 +10,7 @@ const _factorialOf = (number) => {
 const whenToStop = (letters) => _factorialOf(letters.length);
 
 const swap = (array, pos1, pos2) => {
-  let temp = array[pos1];
-
-  array[pos1] = array[pos2];
-  array[pos2] = temp;
+  [array[pos1], array[pos2]] = [array[pos2], array[pos1]];
 };
 
 const heapsPermute = (array, cb, n = array.length) => {
