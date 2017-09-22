@@ -4,7 +4,14 @@ import fetchManyImages from './responsesInOrder';
 
 const generatePsudoURLS = (length) => Array.from({length}, (_index) => `https://${_index}/image`);
 
+test('on called without a valid input, should throw', (t) => {
+  let error = t.throws(() => fetchManyImages());
+
+  t.is(error.message, 'please provide at least one URL.');
+});
+
 test.cb('on called with 1 url, we get 1 elements returned', (t) => {
+
   t.plan(1);
 
   fetchManyImages('https://aProplerlyformedURL.com', (results) => {
