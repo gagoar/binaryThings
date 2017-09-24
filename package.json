@@ -67,6 +67,7 @@
     "eslint": "^3.0.0",
     "eslint-config-eventbrite": "^4.1.0",
     "eslint-plugin-import": "^2.7.0",
+    "istanbul": "^0.4.5",
     "jsdom": "^11.2.0",
     "nyc": "^11.2.1",
     "webpack": "^3.5.6",
