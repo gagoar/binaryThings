@@ -1,0 +1,16 @@
+{
+  "name": "BinaryThings",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Gago",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "interviewQuestions",
+    "BST"
+  ],
+  "devDependencies": {
+    "tsdx": "^0.12.3",
+    "typescript": "^3.8.3"
+  }
+}

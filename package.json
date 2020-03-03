@@ -56,7 +56,8 @@
   "dependencies": {
     "ava": "^0.22.0",
     "babel-eslint": "^7.2.3",
-    "d3": "^4.10.2"
+    "d3": "^4.10.2",
+    "tsc": "^1.20150623.0"
   },
   "devDependencies": {
     "ajv": "^5.2.2",
