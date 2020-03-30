@@ -49,4 +49,5 @@ describe('twoSum', () => {
 
     expect(getValuesFromLinkedList(value)).toStrictEqual([6, 6, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]);
   })
+
 });
