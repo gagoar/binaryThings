@@ -22,7 +22,16 @@ describe('twoSum', () => {
 
     expect(getValuesFromLinkedList(value)).toStrictEqual(([7, 0, 8]));
   });
-  it.only('should add two numbers', () => {
+  it('should add two numbers', () => {
+
+    const input1 = getLinkedList([2, 4, 3])
+    const input2 = getLinkedList([5, 6, 4])
+
+    const value = addTwoNumbers(input1, input2);
+
+    expect(getValuesFromLinkedList(value)).toStrictEqual([7, 0, 8]);
+  })
+  it('should add two numbers', () => {
 
     const input1 = getLinkedList([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
     const input2 = getLinkedList([5, 6, 4])

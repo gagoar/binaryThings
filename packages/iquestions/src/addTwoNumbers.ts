@@ -32,6 +32,6 @@ export const addTwoNumbers = function (l1: LinkedList, l2: LinkedList): LinkedLi
   const n = Number(arr1.reverse().join(""));
   const m = Number(arr2.reverse().join(""));
 
-  const total = (n + m).toString().split("");
-  return getLinkedList(total.map(n => Number(n)).reverse());
+  const total = (n + m).toLocaleString('fullwide', { useGrouping: false });
+  return getLinkedList(total.split("").map(n => Number(n)).reverse());
 };
