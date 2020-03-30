@@ -27,11 +27,31 @@ export const getValuesFromLinkedList = (list: LinkedList): number[] => {
 };
 
 export const addTwoNumbers = function (l1: LinkedList, l2: LinkedList): LinkedList {
-  const arr1 = getValuesFromLinkedList(l1);
-  const arr2 = getValuesFromLinkedList(l2);
-  const n = Number(arr1.reverse().join(""));
-  const m = Number(arr2.reverse().join(""));
 
-  const total = (n + m).toLocaleString('fullwide', { useGrouping: false });
-  return getLinkedList(total.split("").map(n => Number(n)).reverse());
+  const list1 = getValuesFromLinkedList(l1);
+  const list2 = getValuesFromLinkedList(l2);
+
+  const bigList = list1.length >= list2.length ? list1 : list2;
+
+  const smallList = list1 === bigList ? list2 : list1;
+  const arrResult = bigList.reduce<{ addedUp: number[], carry: 1 | 0 }>((result, valueA, index) => {
+
+    const valueB = (smallList[index] || 0) + result.carry;
+    const value = valueA + valueB;
+
+    const carry = value >= 10 ? 1 : 0;
+
+    result.addedUp[index] = carry ? value - 10 : value;
+    result.carry = carry;
+
+    return result;
+
+  }, { addedUp: [], carry: 0 });
+
+  if (arrResult.carry) {
+    arrResult.addedUp = [...arrResult.addedUp, 1];
+  }
+
+  console.log(arrResult.addedUp)
+  return getLinkedList(arrResult.addedUp);
 };
