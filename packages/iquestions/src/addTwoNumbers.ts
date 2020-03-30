@@ -52,6 +52,5 @@ export const addTwoNumbers = function (l1: LinkedList, l2: LinkedList): LinkedLi
     arrResult.addedUp = [...arrResult.addedUp, 1];
   }
 
-  console.log(arrResult.addedUp)
   return getLinkedList(arrResult.addedUp);
 };
