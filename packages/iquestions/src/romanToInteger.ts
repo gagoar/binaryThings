@@ -4,9 +4,9 @@
  */
 
 const SUBTRACTS_CASES = {
-  I: (roman: ROMAN[], pos: number): number => ['V', 'X'].includes(roman[pos + 1]) ? ROMAN_NUMBERS_MAP[roman[pos + 1]] - ROMAN_NUMBERS_MAP['I'] : 0,
-  X: (roman: ROMAN[], pos: number) => ['L', 'C'].includes(roman[pos + 1]) ? ROMAN_NUMBERS_MAP[roman[pos + 1]] - ROMAN_NUMBERS_MAP['X'] : 0,
-  C: (roman: ROMAN[], pos: number) => ['D', 'M'].includes(roman[pos + 1]) ? ROMAN_NUMBERS_MAP[roman[pos + 1]] - ROMAN_NUMBERS_MAP['C'] : 0,
+  I: (roman: ROMAN[], pos: number): number => ['V', 'X'].includes(roman[pos + 1]) ? ROMAN_NUMBERS_MAP[roman[pos + 1]] : 0,
+  X: (roman: ROMAN[], pos: number) => ['L', 'C'].includes(roman[pos + 1]) ? ROMAN_NUMBERS_MAP[roman[pos + 1]] : 0,
+  C: (roman: ROMAN[], pos: number) => ['D', 'M'].includes(roman[pos + 1]) ? ROMAN_NUMBERS_MAP[roman[pos + 1]] : 0,
 };
 
 const ROMAN_NUMBERS_MAP = {
@@ -36,10 +36,11 @@ export const romanToInt = (romanNumber: string): number => {
     }
 
     if (isSubTractable(roman)) {
+
       const subtractAmount = SUBTRACTS_CASES[roman](romanNumberArr, index);
       if (subtractAmount) {
         memo.skipNext = !!subtractAmount;
-        value = subtractAmount;
+        value = subtractAmount - value;
       }
     }
 
