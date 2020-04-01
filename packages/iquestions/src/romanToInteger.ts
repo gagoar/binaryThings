@@ -3,10 +3,12 @@
  * @return {number}
  */
 
+const checkSubtractCases = (romanSubset: ROMAN[]) => (roman: ROMAN[], pos: number) => romanSubset.includes(roman[pos + 1]) ? ROMAN_NUMBERS_MAP[roman[pos + 1]] : 0;
+
 const SUBTRACTS_CASES = {
-  I: (roman: ROMAN[], pos: number): number => ['V', 'X'].includes(roman[pos + 1]) ? ROMAN_NUMBERS_MAP[roman[pos + 1]] : 0,
-  X: (roman: ROMAN[], pos: number) => ['L', 'C'].includes(roman[pos + 1]) ? ROMAN_NUMBERS_MAP[roman[pos + 1]] : 0,
-  C: (roman: ROMAN[], pos: number) => ['D', 'M'].includes(roman[pos + 1]) ? ROMAN_NUMBERS_MAP[roman[pos + 1]] : 0,
+  I: checkSubtractCases(['V', 'X']),
+  X: checkSubtractCases(['L', 'C']),
+  C: checkSubtractCases(['D', 'M']),
 };
 
 const ROMAN_NUMBERS_MAP = {
