@@ -2,7 +2,6 @@ import { twoSum } from '../src/twoSum';
 
 describe('twoSum', () => {
   it('should add Two Numbers', () => {
-    debugger;
     const value = twoSum([3, 2, 4], 6);
     expect(value).toStrictEqual([1, 2]);
   });

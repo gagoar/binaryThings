@@ -12,7 +12,6 @@
 export const twoSum = (nums: number[], target: number): [number, number | undefined] => {
   let m: number | undefined;
   const n = nums.findIndex((num, index) => {
-    debugger;
     m = nums.findIndex(
       (sub, subIndex) => index !== subIndex && sub + num === target
     );
