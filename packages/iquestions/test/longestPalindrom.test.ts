@@ -34,7 +34,7 @@ describe('longestPalindrome', () => {
     expect(value).toStrictEqual("bacab");
   });
 
-  it.skip('should find the longest palindrome', () => {
+  it('should find the longest palindrome', () => {
     const value = longestPalindrome("babadada");
     expect(value).toStrictEqual("adada");
   });
