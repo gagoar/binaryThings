@@ -17,7 +17,7 @@ Output: "bb"
 type FindLength = (s: string, { left, right }: { left: number, right: number }) => number;
 
 const findLength: FindLength = (s, { left, right }) => {
-  while (left >= 0 && right < s.length && s.charAt(right) === s.charAt(left)) {
+  while (left >= 0 && right < s.length && s[right] === s[left]) {
     left--;
     right++;
   }
@@ -26,8 +26,7 @@ const findLength: FindLength = (s, { left, right }) => {
 
 export const longestPalindrome = (s: string): string => {
 
-  debugger;
-  if (s == null || s.length == 0)
+  if (!s || s.length == 0)
     return "";
 
   if (s.length === 2 && s[0] !== s[1]) {
