@@ -3,7 +3,7 @@ import { longestPalindrome } from '../src/longestPalindrome';
 describe('longestPalindrome', () => {
   it('should find a palindrome', () => {
     const value = longestPalindrome("babad");
-    expect(value).toStrictEqual("bab");
+    expect(value).toStrictEqual("aba");
   });
 
   it('should find a palindrome', () => {
